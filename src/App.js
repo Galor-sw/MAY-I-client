@@ -6,7 +6,6 @@ import DrinkInvite from "./componnents/DrinkInvite";
 import axios from 'axios';
 import cookie from 'js-cookie';
 
-
 const users = [{
     userId: 4,
     type: 2,
@@ -33,6 +32,7 @@ function getCookie(name) {
 
 
 function App() {
+    const [location, setLocation] = useState(window.location.origin);
     const [userId, setUserId] = useState('');
     const [user, setUser] = useState('');
 
@@ -44,7 +44,7 @@ function App() {
         // }
         try {
             console.log('login');
-            await axios.post('http://localhost:4020/login', {
+            await axios.post(`${location}/login`, {
                     email: "kobi.ronen@gmail.com", password: "123",
                 },
                 {
@@ -60,7 +60,6 @@ function App() {
                     // setSessionId(sessionID);
                 });
 
-            // await axios.post('http://localhost:4020/login', {email: "kobi.ronen@gmail.com", password: "123"});
         } catch (error) {
         }
     }
@@ -70,7 +69,7 @@ function App() {
         try {
             console.log('after login');
             console.log({toto: document.cookie});
-            await axios.get('http://localhost:4020/userInfo', {
+            await axios.get(`${location}/userInfo`, {
                 withCredentials: true,
                 credentials: 'include',
                 headers: {
