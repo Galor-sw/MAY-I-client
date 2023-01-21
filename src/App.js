@@ -100,16 +100,16 @@ function App() {
     const [blur, setBlur] = useState('');
     console.log(blur);
     return (
-        <div>
+        <>
             <div
                 className={'grid place-content-center gap-4 mainLinear bg-cover h-screen relative w-full bg-cover bg-center ' + blur}>
-                <button onClick={server}>login</button>
-                <button onClick={userInfo}>afterLogin</button>
+                {/*<button onClick={server}>login</button>*/}
+                {/*<button onClick={userInfo}>afterLogin</button>*/}
                 <Map changeUser={changeUser}/>
                 {userId !== '' && <Card user={user} func={setCommunication} blur={setBlur}/>}
             </div>
             {communicationCard === 'drink' && <DrinkInvite func={setCommunication} blur={setBlur}/>}
-        </div>
+        </>
     );
 }
 
