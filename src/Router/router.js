@@ -10,6 +10,7 @@ const ReactRouter = () => {
             <Route exact path='/' element={<Login/>}></Route>
             <Route exact path='/home' element={<App/>}/>
             <Route exact path='/QR' element={<QR/>}/>
+            {/*<Route exact path='/chat' element={<Chat/>}/>*/}
         </Routes>
     )
 }
