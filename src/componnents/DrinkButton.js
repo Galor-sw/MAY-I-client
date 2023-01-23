@@ -1,6 +1,11 @@
-const DrinkButton = ({func, blur}) => {
+import React from 'react';
+import  { withSocket }  from './withSocket';
+
+const DrinkButton = ({func, blur, socket}) => {
     const anotherFunc = () => {
         console.log('dor - this is the drink button')
+        socket.emit('testing', "test worked here!")
+
     }
 
     const submit = () => {
@@ -13,4 +18,4 @@ const DrinkButton = ({func, blur}) => {
     )
 }
 
-export default DrinkButton;
+export default withSocket(DrinkButton);

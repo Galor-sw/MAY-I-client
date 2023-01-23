@@ -5,6 +5,7 @@ import {useState} from "react";
 import DrinkInvite from "./componnents/DrinkInvite";
 import axios from 'axios';
 import cookie from 'js-cookie';
+import { withSocket } from './componnents/withSocket';
 
 const users = [{
     userId: 4,
@@ -113,4 +114,4 @@ function App() {
     );
 }
 
-export default App;
+export default withSocket(App);
