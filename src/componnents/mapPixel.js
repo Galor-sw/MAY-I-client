@@ -1,29 +1,25 @@
-const mapPixel = ({number, changeCard}) => {
-
+const mapPixel = ({user, changeCard}) => {
     let color;
-    if (number === 1) {
+    if (user.gender === 1) {
         color = 'bg-black cursor-auto';
-    } else if (number === 2) {
+    } else if (user.gender === 2) {
         color = 'man';
-    } else if (number === 3) {
+    } else if (user.gender === 3) {
         color = 'woman';
     } else color = 'floor object-scale-down cursor-auto';
 
-
-    // let image;
-    // if (number === 0) {
-    //     image = "bg-[url('./images/parquet.png')]"
-    // }
+ 
     const submit = () => {
-        changeCard({number});
+        changeCard(user.user);
     }
 
     const nothing = () => {
 
     }
+
     return (
         <button className={color + ' w-10 h-10 bg-contain'}
-                onClick={number <= 1 ? nothing : submit}
+                onClick={user.gender <= 1 ? nothing : submit}
                 type="button"
         >
         </button>
