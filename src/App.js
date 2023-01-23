@@ -1,28 +1,10 @@
 import './App.css';
 import Map from "./componnents/Map";
 import Card from "./componnents/Card";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DrinkInvite from "./componnents/DrinkInvite";
 import axios from 'axios';
 import cookie from 'js-cookie';
-
-const users = [{
-    userId: 4,
-    type: 2,
-    name: 'eli',
-    mail: 'eli@gmail.com'
-}, {
-    userId: 2,
-    type: 2,
-    name: 'tamir',
-    mail: 'tamir@gmail.com'
-}, {
-    userId: 3,
-    type: 3,
-    name: 'haim',
-    mail: 'haim@gmail.com'
-}
-]
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -88,24 +70,49 @@ function App() {
             console.error(error);
         }
     }
+    const [users, setUsers] = useState([]);
+    const appendUsers = (user) => {
+        const tempUsers = users;
+        tempUsers.push(user);
+        setUsers(tempUsers);
+    }
+
+    useEffect(() => {
+        // function to run only once on component load
+
+        const bringData = async () => {
+            try {
+                console.log('mapping');
+                await axios.get(`http://localhost:4020/connected/connectedUsers`)
+                    .then(response => {
+                            response.data.map((index, key) => {
+                                appendUsers(index);
+                            })
+                        }
+                    );
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        bringData().then();
+    }, []);
 
 
-    const changeUser = (number) => {
-        setUserId(number);
-        let userJson = users.find(e => e.userId === number);
+    const changeUser = (user) => {
+        setUserId(user);
+        let userJson = users.find(e => e.user_id._id === user);
         setUser(userJson);
     }
 
     const [communicationCard, setCommunication] = useState();
     const [blur, setBlur] = useState('');
-    console.log(blur);
     return (
         <>
             <div
                 className={'grid place-content-center gap-4 mainLinear bg-cover h-screen relative w-full bg-cover bg-center ' + blur}>
                 {/*<button onClick={server}>login</button>*/}
                 {/*<button onClick={userInfo}>afterLogin</button>*/}
-                <Map changeUser={changeUser}/>
+                <Map changeUser={changeUser} users={users}/>
                 {userId !== '' && <Card user={user} func={setCommunication} blur={setBlur}/>}
             </div>
             {communicationCard === 'drink' && <DrinkInvite func={setCommunication} blur={setBlur}/>}

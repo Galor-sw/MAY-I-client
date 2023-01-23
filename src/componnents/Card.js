@@ -2,6 +2,7 @@ import ChatButton from "./ChatButton";
 import DrinkButton from "./DrinkButton";
 
 const Card = ({user, func, blur}) => {
+    console.log('Card User: ', user);
     let pic;
     if (user.type === 2) {
         pic = 'man ';
@@ -9,17 +10,28 @@ const Card = ({user, func, blur}) => {
         pic = 'woman ';
     }
     return (
-        <div className="min-w-[300px] max-w-[400px] bg-red-200 place-self-center rounded-md gap-2 m-2">
-            <div className="m-2">
-                <div className="userName grid grid-flow-col border-b-2 m-2">
-                    <div className={pic + "w-10 h-10 bg-contain"}>
-                    </div>
-                    <div>
-                        {user.name}
+        <div className="min-w-[250px] max-w-[400px] bg-red-200 place-self-center rounded-xl gap-2 m-2">
+            <div className={`bg-emerald-100 p-2`}>
+                <div className="userName grid grid-flow-row place-items-center">
+                    <div className="relative w-40 h-40">
+                        <img className="rounded-full shadow-sm"
+                             src={user.user_id.image.ImageUrl}
+                             alt="user image"/>
                     </div>
                 </div>
-                <div className="mail m-2 border-b-2">
-                    {user.mail}
+            </div>
+            <div className={`bg-white`}>
+                <div className={`text-xl place-items-center grid`}>
+                    {user.user_id.firstname[0].toUpperCase() + user.user_id.firstname.substring(1).toLowerCase()} {user.user_id.lastname[0].toUpperCase() + user.user_id.lastname.substring(1).toLowerCase()}
+                </div>
+                <div className="mail grid border-b-2 border-black">
+                </div>
+                <div className={`grid border-b-2 border-black`}>
+                    <div className={`m-2 ml-8`}>
+                        <div> About me:
+                        </div>
+                        {user.user_id.description}
+                    </div>
                 </div>
                 <div className="grid place-center grid-flow-col gap-1">
                     <DrinkButton func={func} blur={blur}/>

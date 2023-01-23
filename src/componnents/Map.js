@@ -1,54 +1,144 @@
 import MapPixel from "./mapPixel";
-import axios from "axios";
 import {useEffect, useState} from "react";
 
 
-const Map = ({changeUser}) => {
+const Map = ({changeUser, users}) => {
     const [locationMap, setLocation] = useState([
-        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-        [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [{gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
+            gender: 1,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}],
+        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
+            gender: 1,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 1,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }],
+        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 1,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 1,
+            user_id: ''
+        }, {gender: 1, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}],
+        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
+            gender: 0,
+            user_id: ''
+        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
     ]);
 
-    const changeCard = ({number}) => {
-        changeUser(number);
+    const changeCard = (user) => {
+        changeUser(user);
     }
 
-    const setMap = (row, col) => {
+    const setMap = (user, row, col) => {
         const updateMap = [...locationMap];
-        updateMap[row][col] = 2;
+        const gender = user.gender == 'male' ? 2 : 3;
+        updateMap[row][col] = {gender: gender, user: user._id};
         setLocation(updateMap);
     }
-
     useEffect(() => {
-        // function to run only once on component load
-
-        const bringData = async () => {
-            try {
-                console.log('mapping');
-                await axios.get(`http://localhost:4020/connected/connectedUsers`)
-                    .then(response => {
-                            response.data.map((index, key) => {
-                                console.log('@@@@@@@@@@@');
-                                console.log(index.seat);
-                                setMap(index.seat.row, index.seat.col);
-                            })
-                        }
-                    );
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
-        bringData().then(r => console.log(r));
+        users.map((index, key) => {
+            setMap(index.user_id, index.seat.row, index.seat.col);
+        })
     }, []);
 
     return (
@@ -58,7 +148,7 @@ const Map = ({changeUser}) => {
                         return (
                             <div key={key} className="grid grid-flow-col">
                                 {row.map((index, key) =>
-                                    <MapPixel key={key} number={index} changeCard={changeCard}/>)}
+                                    <MapPixel key={key} user={index} changeCard={changeCard}/>)}
                             </div>
                         )
                     }
