@@ -2,10 +2,11 @@ import './App.css';
 import Map from "./componnents/Map";
 import Card from "./componnents/Card";
 import {useEffect, useState} from "react";
-import DrinkInvite from "./componnents/DrinkInvite";
 import axios from 'axios';
 import cookie from 'js-cookie';
+import DrinkMenu from "./componnents/DrinkMenu";
 import { withSocket } from './componnents/withSocket';
+
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -96,7 +97,7 @@ function App() {
             }
         }
         bringData().then();
-    }, []);
+    });
 
 
     const changeUser = (user) => {
@@ -114,9 +115,10 @@ function App() {
                 {/*<button onClick={server}>login</button>*/}
                 {/*<button onClick={userInfo}>afterLogin</button>*/}
                 <Map changeUser={changeUser} users={users}/>
-                {userId !== '' && <Card user={user} func={setCommunication} blur={setBlur}/>}
+                {userId !== '' && <Card user={user} communication={setCommunication} blur={setBlur}/>}
             </div>
-            {communicationCard === 'drink' && <DrinkInvite func={setCommunication} blur={setBlur}/>}
+            {communicationCard === 'drink' &&
+                <DrinkMenu user={user} setCommunication={setCommunication} blur={setBlur}/>}
         </>
     );
 }
