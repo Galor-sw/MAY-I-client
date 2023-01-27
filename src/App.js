@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 import cookie from 'js-cookie';
 import DrinkMenu from "./componnents/DrinkMenu";
+import { withSocket } from './componnents/withSocket';
+
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -121,4 +123,4 @@ function App() {
     );
 }
 
-export default App;
+export default withSocket(App);
