@@ -73,6 +73,7 @@ function App() {
         }
     }
     const [users, setUsers] = useState([]);
+
     const appendUsers = (user) => {
         const tempUsers = users;
         tempUsers.push(user);
