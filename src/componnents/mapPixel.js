@@ -8,7 +8,7 @@ const mapPixel = ({user, changeCard}) => {
         color = 'woman';
     } else color = 'floor object-scale-down cursor-auto';
 
- 
+
     const submit = () => {
         changeCard(user.user);
     }
