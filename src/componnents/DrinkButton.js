@@ -1,9 +1,6 @@
-const DrinkButton = ({communication, blur}) => {
+import {withSocket} from './withSocket';
 
-import React from 'react';
-import  { withSocket }  from './withSocket';
-
-const DrinkButton = ({func, blur, socket}) => {
+const DrinkButton = ({func, blur, socket, communication}) => {
     const anotherFunc = () => {
         console.log('dor - this is the drink button')
 
