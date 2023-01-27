@@ -4,125 +4,62 @@ import {useEffect, useState} from "react";
 
 const Map = ({changeUser, users}) => {
     const [locationMap, setLocation] = useState([
-        [{gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
-            gender: 1,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}],
-        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
-            gender: 1,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 1,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }],
-        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 1,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
-        [{gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 1,
-            user_id: ''
-        }, {gender: 1, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}],
-        [{gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {
-            gender: 0,
-            user_id: ''
-        }, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''},
+            {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''},
+            {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''},
+            {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''},
+            {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 1, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 1, user_id: ''},
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
+        [
+            {gender: 1, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''}, {gender: 0, user_id: ''},
+            {gender: 0, user_id: ''}, {gender: 0, user_id: ''}],
     ]);
 
     const changeCard = (user) => {
@@ -135,6 +72,7 @@ const Map = ({changeUser, users}) => {
         updateMap[row][col] = {gender: gender, user: user._id};
         setLocation(updateMap);
     }
+
     useEffect(() => {
         users.map((index, key) => {
             setMap(index.user_id, index.seat.row, index.seat.col);

@@ -35,7 +35,7 @@ const Card = ({user, func, blur}) => {
                 </div>
                 <div className="grid place-center grid-flow-col gap-1">
                     <DrinkButton func={func} blur={blur}/>
-                    <ChatButton func={func}/>
+                    <ChatButton name={user.user_id} func={func}/>
                 </div>
             </div>
         </div>
