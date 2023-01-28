@@ -1,6 +1,7 @@
 import axios from "axios";
 import cookie from "js-cookie";
 
+
 const LoginPage = ({setStatus}) => {
     const changeStatus = () => {
         setStatus('signUp');
@@ -12,7 +13,6 @@ const LoginPage = ({setStatus}) => {
     //     console.log('into submit');
     //     navigate("/home");
     // }
-
 
     const submit = (e) => {
         e.preventDefault();
@@ -52,11 +52,12 @@ const LoginPage = ({setStatus}) => {
         }
     }
     return (
-        <div className={`grid place-items-center h-screen`}>
+        <div className={`grid content-center place-items-center h-screen`}>
+            <img alt="My Image" className="my-image" src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
             <form className={`min-w-[260px]`} onSubmit={submit}>
                 <div className="form-field username">
                     <div className="icon">
-                        <span className="material-symbols-outlined">account_circles</span>
+                        <span className="material-symbols-outlined">account_circle</span>
                     </div>
                     <label>
                         <input name="email" placeholder="Email" required type="text"/>

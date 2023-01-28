@@ -11,8 +11,8 @@ const SignUp = ({setStatus}) => {
 
     return (
         <>
-            <div className={`min-w-[260px] grid place-items-center h-screen`}>
-
+            <div className={`min-w-[260px] grid content-center place-items-center h-screen`}>
+                <img alt="My Image" className="my-image" src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
                 <form action="#" className="form" id="signup-form" method="POST">
                     <div className="form-field r-username">
                         <div className="icon">

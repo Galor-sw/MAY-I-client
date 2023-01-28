@@ -42,7 +42,7 @@ const QRScanner = (props) => {
     return (
         <div className={`grid place-items-center h-screen`}>
             <div className={`grid place-items-center`}>
-                <p className={`font-[Gagalin] text-4xl`}>Please scan the QR code on your chair</p>
+                <p className={`font-[Helvetica Neue] text-4xl`}>Please scan the QR code on your chair</p>
                 <QrReader
                     delay={300}
                     onError={handleError}

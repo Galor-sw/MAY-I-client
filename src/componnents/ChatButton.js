@@ -1,16 +1,22 @@
+import {useNavigate} from "react-router-dom";
 
-import  { withSocket }  from './withSocket';
+const ChatButton = ({myId, userId, socket}) => {
 
-const ChatButton = ({name, socket}) => {
+    const navigate = useNavigate()
 
     const submit = () => {
-        console.log(name)
-        socket.emit('testing', name)
+
+        socket.emit('ChatInvite', userId)
+        socket.disconnect()
+
+        navigate(`/Chat?myId=${myId}&roomId=${userId}`)
+
     }
 
     return (
-        <button className='chat m-1 bg-contain bg-no-repeat w-10 h-10 place-self-center' onClick={submit}></button>
+        <button className='chat m-4 bg-contain bg-no-repeat w-10 h-10 place-self-center' onClick={submit}></button>
     )
 }
 
-export default withSocket(ChatButton);
+export default ChatButton;
+

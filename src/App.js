@@ -5,7 +5,9 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 import cookie from 'js-cookie';
 import DrinkMenu from "./componnents/DrinkMenu";
-import { withSocket } from './componnents/withSocket';
+import {io} from 'socket.io-client';
+import ChatPopUp from "./componnents/ChatPopUp";
+import DrinkPopUp from "./componnents/DrinkPopUp";
 
 
 function getCookie(name) {
@@ -17,10 +19,78 @@ function getCookie(name) {
 
 function App() {
     const [location, setLocation] = useState(window.location.origin);
+    const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search));
     const [userId, setUserId] = useState('');
     const [user, setUser] = useState('');
+    const [socket, setSocket] = useState();
+    const [room, setRoom] = useState();
+    const [clicker, setClicker] = useState(searchParams.get('myId'));
+    const [sender, setSender]= useState();
+
+    useEffect(() => {
+
+        const row = searchParams.get('row');
+        const col = searchParams.get('col');
+        const myId = searchParams.get('myId');
+
+        setClicker(myId)
+
+        console.log("myId:" + myId);
+
+        const newSocket = io('http://localhost:4020', {
+            query: {
+                userId: myId,
+                roomId: ""
+            }
+        });
+
+        setSocket(newSocket)
+
+        newSocket.on('ChatInvite', msg => {
+            console.log(msg)
+            axios.get(`http://localhost:4020/connected/user/${msg.sender}`)
+                .then(retVal => {
+                    setCommunicationChat(`${retVal.data.firstname} ${msg.message}`)
+                })
+                .catch(error => console.log(error))
+
+            setRoom(msg.receiver)
+            setSender(msg.sender)
+            setBlur('blur-md')
+        });
+
+        newSocket.on('drinkInvite', msg => {
+            console.log(msg)
+            axios.get(`http://localhost:4020/connected/user/${msg.sender}`)
+                .then(retVal => {
+                    setDrinkPopUpText(`${retVal.data.firstname} ${msg.message}`)
+                })
+                .catch(error => console.log(error))
+
+            setBlur('blur-md')
+        });
+
+        // function to run only once on component load
+        const bringData = async () => {
+            try {
+                await axios.get(`http://localhost:4020/connected/connectedUsers`)
+                    .then(response => {
+                            response.data.map((index, key) => {
+                                appendUsers(index);
+                            })
+                        }
+                    );
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        bringData().then();
+    },[]);
+
+
 
     const server = async (e) => {
+        console.log("111111111111111111111")
         e.preventDefault();
         // JSON.stringify({email: "kobi.ronen@gmail.com", password: "123"});
         // headers: {
@@ -80,34 +150,16 @@ function App() {
         setUsers(tempUsers);
     }
 
-    useEffect(() => {
-        // function to run only once on component load
-
-        const bringData = async () => {
-            try {
-                console.log('mapping');
-                await axios.get(`http://localhost:4020/connected/connectedUsers`)
-                    .then(response => {
-                            response.data.map((index, key) => {
-                                appendUsers(index);
-                            })
-                        }
-                    );
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        bringData().then();
-    });
-
-
     const changeUser = (user) => {
         setUserId(user);
         let userJson = users.find(e => e.user_id._id === user);
         setUser(userJson);
     }
 
-    const [communicationCard, setCommunication] = useState();
+    const [communicationChat, setCommunicationChat] = useState('');
+    const [communicationDrink, setCommunicationDrink] = useState('');
+    const [drinkPopUpText, setDrinkPopUpText] = useState('');
+
     const [blur, setBlur] = useState('');
     return (
         <>
@@ -116,12 +168,16 @@ function App() {
                 {/*<button onClick={server}>login</button>*/}
                 {/*<button onClick={userInfo}>afterLogin</button>*/}
                 <Map changeUser={changeUser} users={users}/>
-                {userId !== '' && <Card user={user} communication={setCommunication} blur={setBlur}/>}
+                {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink} communicationChat={setCommunicationChat} blur={setBlur} socket={socket}/>}
             </div>
-            {communicationCard === 'drink' &&
-                <DrinkMenu user={user} setCommunication={setCommunication} blur={setBlur}/>}
+            {communicationDrink != '' &&
+                <DrinkMenu sender={clicker} communication={communicationDrink} setCommunication={setCommunicationDrink} blur={setBlur} socket={socket}/>}
+            {communicationChat != '' &&
+                <ChatPopUp sender={sender} roomId={room} communication={communicationChat} setCommunication={setCommunicationChat} blur={setBlur} socket={socket}/>}
+            {drinkPopUpText != '' &&
+                <DrinkPopUp communication={drinkPopUpText} setCommunication={setDrinkPopUpText} blur={setBlur}/>}
         </>
     );
 }
 
-export default withSocket(App);
+export default App;
