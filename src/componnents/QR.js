@@ -40,15 +40,17 @@ const QRScanner = (props) => {
     }
 
     return (
-        <div>
-            <p>Please scan the QR code on your chair</p>
-            <QrReader
-                delay={300}
-                onError={handleError}
-                onScan={handleScan}
-                style={{width: '250px', height: '250px'}}
-            />
-            <div id="result">{result}</div>
+        <div className={`grid place-items-center h-screen`}>
+            <div className={`grid place-items-center`}>
+                <p className={`font-[Gagalin] text-4xl`}>Please scan the QR code on your chair</p>
+                <QrReader
+                    delay={300}
+                    onError={handleError}
+                    onScan={handleScan}
+                    style={{width: '400px', height: '400px'}}
+                />
+                <div id="result">{result}</div>
+            </div>
         </div>
     );
 }
