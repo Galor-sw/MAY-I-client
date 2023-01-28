@@ -1,8 +1,8 @@
 import {Route, Routes} from 'react-router-dom';
 import App from "../App";
 import Login from "../componnents/Login";
-import QR from "../componnents/QR";
 import Chat from "../componnents/Chat"
+import QRScanner from "../componnents/QR";
 
 const ReactRouter = () => {
 
@@ -10,7 +10,7 @@ const ReactRouter = () => {
         <Routes>
             <Route exact path='/' element={<Login/>}></Route>
             <Route exact path='/home' element={<App/>}/>
-            <Route exact path='/QR' element={<QR/>}/>
+            <Route exact path='/QR/:id' element={<QRScanner/>}/>
             <Route exact path='/chat' element={<Chat/>}/>
         </Routes>
     )

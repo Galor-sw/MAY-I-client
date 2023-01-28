@@ -7,7 +7,6 @@ import SignUp from "./signUp";
 const Login = () => {
     const [status, setStatus] = useState('login');
 
-
     return (
         <>
             {status === 'login' && <LoginPage setStatus={setStatus}/>}

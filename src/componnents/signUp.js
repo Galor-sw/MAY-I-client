@@ -3,6 +3,12 @@ const SignUp = ({setStatus}) => {
         setStatus('login');
     }
 
+    const submit = (e) => {
+        e.preventDefault();
+
+        console.log(e.target.username);
+    }
+
     return (
         <>
             <div className={`min-w-[260px] grid place-items-center h-screen`}>
