@@ -15,7 +15,7 @@ const SignUp = ({setStatus}) => {
         clientURL = 'https://may-i-client.onrender.com';
         serverURL = 'https://may-i.onrender.com';
     }
-
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
     const [imageFile, setImageFile] = useState('');
 
     async function loadImage(e) {
