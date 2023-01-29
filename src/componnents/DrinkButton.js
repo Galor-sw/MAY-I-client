@@ -1,22 +1,16 @@
-import {withSocket} from './withSocket';
+import React from 'react';
 
-const DrinkButton = ({func, blur, socket, communication}) => {
-    const anotherFunc = () => {
-        console.log('dor - this is the drink button')
-
-
-    }
+const DrinkButton = ({communication, blur, userId, socket}) => {
 
     const openDrinkMenu = () => {
-        communication('drink');
+        communication(userId);
         blur('blur-md');
-        anotherFunc();
-        socket.emit('testing', "test worked here!")
     }
+
     return (
-        <button className={'drink m-1 bg-contain bg-no-repeat w-10 h-10 place-self-center'}
+        <button className={'drink m-4 bg-contain bg-no-repeat w-10 h-10 place-self-center'}
                 onClick={openDrinkMenu}></button>
     )
 }
 
-export default withSocket(DrinkButton);
+export default DrinkButton;

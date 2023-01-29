@@ -1,5 +1,5 @@
 import MapPixel from "./mapPixel";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 
 const Map = ({changeUser, users}) => {
@@ -67,13 +67,17 @@ const Map = ({changeUser, users}) => {
     }
 
     const setMap = (user, row, col) => {
+        console.log(user.gender)
         const updateMap = [...locationMap];
-        const gender = user.gender == 'male' ? 2 : 3;
+        const gender = user.gender === 'male' ? 2 : 3;
         updateMap[row][col] = {gender: gender, user: user._id};
         setLocation(updateMap);
-    }
+    };
 
     useEffect(() => {
+        console.log(users)
+        console.log(users[0])
+        const updateMap = [...locationMap];
         users.map((index, key) => {
             setMap(index.user_id, index.seat.row, index.seat.col);
         })

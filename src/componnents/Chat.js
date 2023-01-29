@@ -1,23 +1,76 @@
-import { withSocket } from './withSocket';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import Typing from "./Typing";
 import ChatMessagesList from "./ChatMessagesList";
+import {io} from 'socket.io-client';
+import axios from "axios";
+import LeaveChatButton from "./LeaveChatButton";
 
-// Typing...
-let timeout = undefined;
 
-const Chat = ({socket}) => {
+
+const Chat = () => {
+
+    const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search));
+    const [socket, setSocket] = useState();
+    const [myId, setMyId] = useState();
+    const [typing, setTyping] = useState(false);
+    const [typerName, setTyperName] = useState("")
+    const [userName, setUserName] = useState("")
+    let user;
+
+    // Typing...
+    let timeout = undefined;
 
     // Client joined the chat
-    useEffect(() => {
-    socket.emit('joinChat', "TestingDorUser");
+    useEffect( () => {
+
+        const roomId = searchParams.get('roomId');
+        const myId = searchParams.get('myId');
+
+        const newSocket = io('http://localhost:4020', {
+            query: {
+                userId: myId,
+                roomId: roomId
+            }
+        });
+
+        setSocket(newSocket);
+        setMyId(myId);
+
+        axios.get(`http://localhost:4020/connected/user/${myId}`)
+            .then(retVal => {
+                user = retVal
+                setTyperName(retVal.data.firstname)
+                setUserName(retVal.data.firstname)
+
+                newSocket.emit('joinChat', retVal.data.firstname);
+
+                newSocket.on('message', message => {
+                    outputMessage(message);
+
+                    // Scroll down
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                })
+
+                newSocket.on('display', (data) => {
+                        console.log('display: ' + data.user)
+                    if (data.typing == true) {
+                        setTyperName(data.user)
+                        setTyping(true);
+                    } else {
+                        setTyperName(data.user)
+                        setTyping(false)
+                    }
+                })
+            })
+            .catch(error => console.log(error))
+
     }, []);
 
     // Hide 'typing..'
-    const typingTimeout = (username) =>  {
-
+    const typingTimeout = () =>  {
+        console.log('typingTimeout:' + typerName)
         setTyping(false);
-        socket.emit('typing', {user: username, typing: false});
+        socket.emit('typing', {user: typerName, typing: false});
     }
 
     const sendMessage = (e) => {
@@ -34,17 +87,12 @@ const Chat = ({socket}) => {
         e.target.elements.msg.focus();
 
         clearTimeout(timeout);
-        typingTimeout('userNameTest');
+        typingTimeout();
     }
 
     useEffect(() => {
         // Message from server
-        socket.on('message', message => {
-            outputMessage(message);
 
-            // Scroll down
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        })
     }, []);
 
     const [chatMessages, setChatMessages] = useState([]);
@@ -54,15 +102,18 @@ const Chat = ({socket}) => {
         setChatMessages((prevState) => [...prevState, message]);
     }
 
-    const [typing, setTyping] = useState(false);
 
     // Show 'typing..'
     const userTyping = (e) => {
 
         // if Not CR
             if (e.which != 13) {
+
                 setTyping(true);
-                socket.emit('typing', {user: "testYossi", typing: true});
+                setTyperName(userName);
+                console.log('while clicking:' + userName)
+                console.log('while clicking:' + typerName)
+                socket.emit('typing', {user: userName, typing: true});
 
                 clearTimeout(timeout);
                 timeout = setTimeout(typingTimeout, 3000);
@@ -72,27 +123,19 @@ const Chat = ({socket}) => {
             }
     };
 
-    socket.on('display', (data) => {
-        if (data.typing == true) {
-            setTyping(true);
-        } else {
-            setTyping(false)
-        }
-    })
-
     return (
         <>
             <div className="ChatBody">
             <div className="chat-container">
                 <header className="chat-header">
                     <h1 className="ChatH1">Private Chat</h1>
-                    <a className="btn noTextDeco" href="http://localhost:3000/home" id="disconnect">Leave Chat</a>
+                    <LeaveChatButton myId={myId} socket={socket}/>
                 </header>
                 <main className="chat-main">
                     <ChatMessagesList messages={chatMessages}/>
                 </main>
                 <div className="chat-form-container">
-                    {typing && <Typing name={"user.name"}/>}
+                    {typing && <Typing name={typerName}/>}
                     <form id="chat-form" onSubmit={sendMessage}>
                         <input onChange={userTyping}
                             autoComplete="off"
@@ -115,4 +158,4 @@ const Chat = ({socket}) => {
     )
 }
 
-export default withSocket(Chat);
+export default Chat;
