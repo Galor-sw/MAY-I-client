@@ -39,12 +39,7 @@ const LogoutButton = ({myId}) => {
         await axios.post(`${serverURL}/logOut`, {
                 user_id: `${myId}`,
             },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-            }).catch(error => {
+        ).catch(error => {
             console.log("logOut failed")
             console.log(error);
         });
