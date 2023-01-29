@@ -8,14 +8,13 @@ import DrinkMenu from "./componnents/DrinkMenu";
 import {io} from 'socket.io-client';
 import ChatPopUp from "./componnents/ChatPopUp";
 import DrinkPopUp from "./componnents/DrinkPopUp";
-
+import Header from "./componnents/Header";
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(";").shift();
 }
-
 
 function App() {
     const [location, setLocation] = useState(window.location.origin);
@@ -167,6 +166,7 @@ function App() {
                 className={'grid place-content-center gap-4 mainLinear bg-cover h-screen relative w-full bg-cover bg-center ' + blur}>
                 {/*<button onClick={server}>login</button>*/}
                 {/*<button onClick={userInfo}>afterLogin</button>*/}
+                <Header myId={clicker}/>
                 <Map changeUser={changeUser} users={users}/>
                 {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink} communicationChat={setCommunicationChat} blur={setBlur} socket={socket}/>}
             </div>
