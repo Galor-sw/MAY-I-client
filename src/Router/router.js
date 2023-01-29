@@ -4,8 +4,8 @@ import Login from "../componnents/Login";
 import Chat from "../componnents/Chat"
 import QRScanner from "../componnents/QR";
 
-const ReactRouter = () => {
 
+const ReactRouter = () => {
     return (
         <Routes>
             <Route exact path='/' element={<Login/>}></Route>
