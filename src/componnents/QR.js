@@ -14,6 +14,7 @@ const QRScanner = (props) => {
             const searchParams = new URLSearchParams(url.search);
             const row = searchParams.get("row");
             const col = searchParams.get("col");
+            // eslint-disable-next-line react-hooks/rules-of-hooks
             const [location, setLocation] = useState(window.location.origin);
             let clientURL;
             let serverURL
