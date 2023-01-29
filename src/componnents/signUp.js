@@ -65,7 +65,7 @@ const SignUp = ({setStatus}) => {
 
     return (
         <>
-            <div className={`min-w-[260px] grid content-center place-items-center h-screen`}>
+            <div className={`min-w-[260px] grid content-center place-items-center h-full`}>
                 <img alt="My Image" className="my-image"
                      src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1675013552/users_profile/may_i_3_uaxxn7.png"/>
                 <form action="#" className="form" id="signup-form" onSubmit={submit} method="POST">
@@ -149,13 +149,15 @@ const SignUp = ({setStatus}) => {
                         </label>
                     </div>
                     <button name="submit" type="submit" className={`button`}>Register</button>
-                    <div className={`grid grid-rows-2 place-items-center`}>
+                    <div className={`grid grid-rows-2 place-items-center mb-6`}>
                         <div>Have an account?
                         </div>
-                        <button className="loginButton" id="loginButton" onClick={changeStatus}>Login Now</button>
+                        <button className="loginButton" id="loginButton" onClick={changeStatus}>Login Now
+                        </button>
                     </div>
                 </form>
             </div>
+
         </>
     )
 }
