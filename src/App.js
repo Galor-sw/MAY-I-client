@@ -9,12 +9,6 @@ import ChatPopUp from "./componnents/ChatPopUp";
 import DrinkPopUp from "./componnents/DrinkPopUp";
 import Header from "./componnents/Header";
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-}
-
 function App() {
     const [users, setUsers] = useState([]);
     const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search));
@@ -35,7 +29,7 @@ function App() {
         clientURL = 'https://may-i-client.onrender.com';
         serverURL = 'https://may-i.onrender.com';
     }
-
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
     useEffect(() => {
         const row = searchParams.get('row');
         const col = searchParams.get('col');

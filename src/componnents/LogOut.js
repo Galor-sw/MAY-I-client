@@ -19,6 +19,13 @@ const LogoutButton = ({myId}) => {
 
     useEffect(() => {
 
+    console.log(myId);
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
+    axios.get(`${serverURL}/connected/user/${myId}`)
+        .then(retVal => {
+            setImageUrl(retVal.data.image.ImageUrl);
+        })
+        .catch(error => console.log(error))
         axios.get(`${serverURL}/connected/user/${myId}`)
             .then(retVal => {
                 setImageUrl(retVal.data.image.ImageUrl);

@@ -1,5 +1,4 @@
 import axios from "axios";
-import cookie from "js-cookie";
 import {useState} from "react";
 
 
@@ -14,6 +13,7 @@ const LoginPage = ({setStatus}) => {
         clientURL = 'https://may-i-client.onrender.com';
         serverURL = 'https://may-i.onrender.com';
     }
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
 
 
     const changeStatus = () => {
@@ -22,37 +22,25 @@ const LoginPage = ({setStatus}) => {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(e.target)
         const form = e.target;
         const formData = new FormData(form);
-        console.log(formData.get('email'));
 
         const data = {
             email: formData.get('email'),
             password: formData.get('password')
         }
-        axiosData(data).then(r => console.log(r));
+        axiosData(data).then(r => {
+        });
     }
     const axiosData = async (data) => {
         try {
             console.log('bring data');
             await axios.post(`${serverURL}/login`, {
-                    email: data.email, password: data.password,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': `${clientURL}`,
-                        'Cookie': `Idea-de3e26ac=${cookie.get('Idea-de3e26ac')}; session=${cookie.get('session')}; session.sig=${cookie.get('session.sig')}; sessionId=${cookie.get('sessionId')}`
-                    },
-                    withCredentials: true,
-                    credentials: 'include',
-                }
-            )
-                .then(response => {
-                    const userId = response.data;
-                    window.location.replace(`${clientURL}/QR/${userId}`);
-                });
+                email: data.email, password: data.password,
+            }).then(response => {
+                const userId = response.data;
+                window.location.replace(`${clientURL}/QR/${userId}`);
+            });
         } catch (error) {
             console.log(error)
         }
