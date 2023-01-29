@@ -2,8 +2,18 @@ import React, {useState} from 'react';
 import QrReader from 'react-qr-scanner'
 import axios from 'axios';
 
-const QRScanner = (props) => {
+const QRScanner = () => {
     const [result, setResult] = useState(null);
+    const [location, setLocation] = useState(window.location.origin);
+    let clientURL;
+    let serverURL
+    if (location == 'http://localhost:3000') {
+        clientURL = 'http://localhost:3000';
+        serverURL = 'http://localhost:4020';
+    } else {
+        clientURL = 'https://may-i-client.onrender.com';
+        serverURL = 'https://may-i.onrender.com';
+    }
 
     const handleScan = (data) => {
         setResult(data);
@@ -15,18 +25,8 @@ const QRScanner = (props) => {
             const row = searchParams.get("row");
             const col = searchParams.get("col");
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            const [location, setLocation] = useState(window.location.origin);
-            let clientURL;
-            let serverURL
-            if (location == 'http://localhost:3000') {
-                clientURL = 'http://localhost:3000';
-                serverURL = 'http://localhost:4020';
-            } else {
-                clientURL = 'https://may-i-client.onrender.com';
-                serverURL = 'https://may-i.onrender.com';
-            }
-
-            axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
+            console.log('scanQR');
+            // axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
             const userData = {
                 "user_id": userID,
                 "seat": {
@@ -36,14 +36,16 @@ const QRScanner = (props) => {
             }
             axios.post(`${serverURL}/connected/user`, userData)
                 .then(res => {
+                    console.log(res);
                     if (res.status == 200) {
-                        window.location.replace(`${url.href}&userId=${userID}`);
+                        console.log(`${clientURL}&userId=${userID}`);
+                        window.location.replace(`${clientURL}/home/?myId=${userID}`);
                     }
                 })
                 .catch(err => {
                     alert("chair already in use");
                     console.log(err);
-                    window.location.href = `${serverURL}`;
+                    window.location.href = `${clientURL}`;
                 });
         }
     }
