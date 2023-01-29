@@ -18,6 +18,7 @@ function getCookie(name) {
 
 
 function App() {
+    const [users, setUsers] = useState([]);
     const [location, setLocation] = useState(window.location.origin);
     const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search));
     const [userId, setUserId] = useState('');
@@ -25,7 +26,8 @@ function App() {
     const [socket, setSocket] = useState();
     const [room, setRoom] = useState();
     const [clicker, setClicker] = useState(searchParams.get('myId'));
-    const [sender, setSender]= useState();
+    const [sender, setSender] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -34,8 +36,7 @@ function App() {
         const myId = searchParams.get('myId');
 
         setClicker(myId)
-
-        console.log("myId:" + myId);
+        
 
         const newSocket = io('http://localhost:4020', {
             query: {
@@ -78,15 +79,16 @@ function App() {
                             response.data.map((index, key) => {
                                 appendUsers(index);
                             })
+                            setLoading(false);
                         }
                     );
             } catch (error) {
                 console.log(error)
+                setLoading(false);
             }
         }
         bringData().then();
-    },[]);
-
+    }, []);
 
 
     const server = async (e) => {
@@ -142,7 +144,6 @@ function App() {
             console.error(error);
         }
     }
-    const [users, setUsers] = useState([]);
 
     const appendUsers = (user) => {
         const tempUsers = users;
@@ -167,13 +168,17 @@ function App() {
                 className={'grid place-content-center gap-4 mainLinear bg-cover h-screen relative w-full bg-cover bg-center ' + blur}>
                 {/*<button onClick={server}>login</button>*/}
                 {/*<button onClick={userInfo}>afterLogin</button>*/}
-                <Map changeUser={changeUser} users={users}/>
-                {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink} communicationChat={setCommunicationChat} blur={setBlur} socket={socket}/>}
+                {!loading ? <Map changeUser={changeUser} users={users}/> : <div>loading...</div>}
+                {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink}
+                                        communicationChat={setCommunicationChat} closeCard={setUserId} blur={setBlur}
+                                        socket={socket}/>}
             </div>
             {communicationDrink != '' &&
-                <DrinkMenu sender={clicker} communication={communicationDrink} setCommunication={setCommunicationDrink} blur={setBlur} socket={socket}/>}
+                <DrinkMenu sender={clicker} communication={communicationDrink} setCommunication={setCommunicationDrink}
+                           blur={setBlur} socket={socket}/>}
             {communicationChat != '' &&
-                <ChatPopUp sender={sender} roomId={room} communication={communicationChat} setCommunication={setCommunicationChat} blur={setBlur} socket={socket}/>}
+                <ChatPopUp sender={sender} roomId={room} communication={communicationChat}
+                           setCommunication={setCommunicationChat} blur={setBlur} socket={socket}/>}
             {drinkPopUpText != '' &&
                 <DrinkPopUp communication={drinkPopUpText} setCommunication={setDrinkPopUpText} blur={setBlur}/>}
         </>

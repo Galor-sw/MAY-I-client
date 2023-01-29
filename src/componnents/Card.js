@@ -1,9 +1,7 @@
 import ChatButton from "./ChatButton";
 import DrinkButton from "./DrinkButton";
 
-const Card = ({myId, user,communicationDrink, communicationChat, blur, socket}) => {
-    console.log('Card User: ', user);
-    console.log('My socket: ', socket);
+const Card = ({myId, user, communicationDrink, communicationChat, closeCard, blur, socket}) => {
     let pic;
     if (user.type === 2) {
         pic = 'man ';
@@ -12,7 +10,10 @@ const Card = ({myId, user,communicationDrink, communicationChat, blur, socket}) 
     }
     return (
         <div className="min-w-[250px] max-w-[250px] bg-emerald-100 place-self-center rounded-lg gap-2 m-2">
-            <div className={`p-2 rounded-lg`}>
+            <div className={`grid`}>
+                <button className={`text-xl place-self-end pr-2`} onClick={() => closeCard('')}>x</button>
+            </div>
+            <div className={`px-2 pb-2 rounded-lg`}>
                 <div className="userName grid grid-flow-row place-items-center">
                     <div className="relative w-40 h-40 my-2">
                         <img className="rounded-full shadow-sm"
@@ -38,8 +39,10 @@ const Card = ({myId, user,communicationDrink, communicationChat, blur, socket}) 
                     </div>
                 </div>
                 <div className="grid place-center grid-flow-col gap-1">
-                    <DrinkButton communication={communicationDrink} userId={user.user_id._id} blur={blur} socket={socket}/>
-                    <ChatButton myId={myId} communication={communicationChat} userId={user.user_id._id} socket={socket}/>
+                    <DrinkButton communication={communicationDrink} userId={user.user_id._id} blur={blur}
+                                 socket={socket}/>
+                    <ChatButton myId={myId} communication={communicationChat} userId={user.user_id._id}
+                                socket={socket}/>
                 </div>
             </div>
         </div>
