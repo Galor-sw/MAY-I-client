@@ -6,7 +6,6 @@ import axios from "axios";
 import LeaveChatButton from "./LeaveChatButton";
 
 
-
 const Chat = () => {
 
     const [searchParams, setSearchParams] = useState(new URLSearchParams(window.location.search));
@@ -16,17 +15,27 @@ const Chat = () => {
     const [typerName, setTyperName] = useState("")
     const [userName, setUserName] = useState("")
     let user;
+    const [location, setLocation] = useState(window.location.origin);
+    let clientURL;
+    let serverURL
+    if (location == 'http://localhost:3000') {
+        clientURL = 'http://localhost:3000';
+        serverURL = 'http://localhost:4020';
+    } else {
+        clientURL = 'https://may-i-client.onrender.com';
+        serverURL = 'https://may-i.onrender.com';
+    }
 
     // Typing...
     let timeout = undefined;
 
     // Client joined the chat
-    useEffect( () => {
+    useEffect(() => {
 
         const roomId = searchParams.get('roomId');
         const myId = searchParams.get('myId');
 
-        const newSocket = io('http://localhost:4020', {
+        const newSocket = io(`${serverURL}`, {
             query: {
                 userId: myId,
                 roomId: roomId
@@ -36,7 +45,7 @@ const Chat = () => {
         setSocket(newSocket);
         setMyId(myId);
 
-        axios.get(`http://localhost:4020/connected/user/${myId}`)
+        axios.get(`${serverURL}/connected/user/${myId}`)
             .then(retVal => {
                 user = retVal
                 setTyperName(retVal.data.firstname)
@@ -52,7 +61,7 @@ const Chat = () => {
                 })
 
                 newSocket.on('display', (data) => {
-                        console.log('display: ' + data.user)
+                    console.log('display: ' + data.user)
                     if (data.typing == true) {
                         setTyperName(data.user)
                         setTyping(true);
@@ -67,7 +76,7 @@ const Chat = () => {
     }, []);
 
     // Hide 'typing..'
-    const typingTimeout = () =>  {
+    const typingTimeout = () => {
         console.log('typingTimeout:' + typerName)
         setTyping(false);
         socket.emit('typing', {user: typerName, typing: false});
@@ -107,47 +116,47 @@ const Chat = () => {
     const userTyping = (e) => {
 
         // if Not CR
-            if (e.which != 13) {
+        if (e.which != 13) {
 
-                setTyping(true);
-                setTyperName(userName);
-                console.log('while clicking:' + userName)
-                console.log('while clicking:' + typerName)
-                socket.emit('typing', {user: userName, typing: true});
+            setTyping(true);
+            setTyperName(userName);
+            console.log('while clicking:' + userName)
+            console.log('while clicking:' + typerName)
+            socket.emit('typing', {user: userName, typing: true});
 
-                clearTimeout(timeout);
-                timeout = setTimeout(typingTimeout, 3000);
-            } else {
-                clearTimeout(timeout);
-                typingTimeout();
-            }
+            clearTimeout(timeout);
+            timeout = setTimeout(typingTimeout, 3000);
+        } else {
+            clearTimeout(timeout);
+            typingTimeout();
+        }
     };
 
     return (
         <>
             <div className="ChatBody">
-            <div className="chat-container">
-                <header className="chat-header">
-                    <h1 className="ChatH1">Private Chat</h1>
-                    <LeaveChatButton myId={myId} socket={socket}/>
-                </header>
-                <main className="chat-main">
-                    <ChatMessagesList messages={chatMessages}/>
-                </main>
-                <div className="chat-form-container">
-                    {typing && <Typing name={typerName}/>}
-                    <form id="chat-form" onSubmit={sendMessage}>
-                        <input onChange={userTyping}
-                            autoComplete="off"
-                            id="msg"
-                            placeholder="Enter Message"
-                            required
-                            type="text"
-                        />
-                        <button className="btn" ><i className="fas fa-paper-plane"></i> Send</button>
-                    </form>
+                <div className="chat-container">
+                    <header className="chat-header">
+                        <h1 className="ChatH1">Private Chat</h1>
+                        <LeaveChatButton myId={myId} socket={socket}/>
+                    </header>
+                    <main className="chat-main">
+                        <ChatMessagesList messages={chatMessages}/>
+                    </main>
+                    <div className="chat-form-container">
+                        {typing && <Typing name={typerName}/>}
+                        <form id="chat-form" onSubmit={sendMessage}>
+                            <input onChange={userTyping}
+                                   autoComplete="off"
+                                   id="msg"
+                                   placeholder="Enter Message"
+                                   required
+                                   type="text"
+                            />
+                            <button className="btn"><i className="fas fa-paper-plane"></i> Send</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
             </div>
             <script
                 crossOrigin="anonymous"

@@ -1,18 +1,24 @@
 import axios from "axios";
 import cookie from "js-cookie";
+import {useState} from "react";
 
 
 const LoginPage = ({setStatus}) => {
+    const [location, setLocation] = useState(window.location.origin);
+    let clientURL;
+    let serverURL
+    if (location == 'http://localhost:3000') {
+        clientURL = 'http://localhost:3000';
+        serverURL = 'http://localhost:4020';
+    } else {
+        clientURL = 'https://may-i-client.onrender.com';
+        serverURL = 'https://may-i.onrender.com';
+    }
+
+
     const changeStatus = () => {
         setStatus('signUp');
     }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    // const navigate = useNavigate();
-    // const submit = (e) => {
-    //     e.preventDefault();
-    //     console.log('into submit');
-    //     navigate("/home");
-    // }
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,13 +36,13 @@ const LoginPage = ({setStatus}) => {
     const axiosData = async (data) => {
         try {
             console.log('bring data');
-            await axios.post(`http://localhost:4020/login`, {
+            await axios.post(`${serverURL}/login`, {
                     email: data.email, password: data.password,
                 },
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': 'http://localhost:3000',
+                        'Access-Control-Allow-Origin': `${clientURL}`,
                         'Cookie': `Idea-de3e26ac=${cookie.get('Idea-de3e26ac')}; session=${cookie.get('session')}; session.sig=${cookie.get('session.sig')}; sessionId=${cookie.get('sessionId')}`
                     },
                     withCredentials: true,
@@ -45,7 +51,7 @@ const LoginPage = ({setStatus}) => {
             )
                 .then(response => {
                     const userId = response.data;
-                    window.location.replace(`http://localhost:3000/QR/${userId}`);
+                    window.location.replace(`${clientURL}/QR/${userId}`);
                 });
         } catch (error) {
             console.log(error)
@@ -53,7 +59,8 @@ const LoginPage = ({setStatus}) => {
     }
     return (
         <div className={`grid content-center place-items-center h-screen`}>
-            <img alt="My Image" className="my-image" src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
+            <img alt="My Image" className="my-image"
+                 src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
             <form className={`min-w-[260px]`} onSubmit={submit}>
                 <div className="form-field username">
                     <div className="icon">

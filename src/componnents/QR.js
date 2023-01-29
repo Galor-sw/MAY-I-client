@@ -14,6 +14,16 @@ const QRScanner = (props) => {
             const searchParams = new URLSearchParams(url.search);
             const row = searchParams.get("row");
             const col = searchParams.get("col");
+            const [location, setLocation] = useState(window.location.origin);
+            let clientURL;
+            let serverURL
+            if (location == 'http://localhost:3000') {
+                clientURL = 'http://localhost:3000';
+                serverURL = 'http://localhost:4020';
+            } else {
+                clientURL = 'https://may-i-client.onrender.com';
+                serverURL = 'https://may-i.onrender.com';
+            }
             const userData = {
                 "user_id": userID,
                 "seat": {
@@ -21,7 +31,7 @@ const QRScanner = (props) => {
                     "col": col
                 }
             }
-            axios.post('http://localhost:4020/connected/user', userData)
+            axios.post(`${serverURL}/connected/user`, userData)
                 .then(res => {
                     if (res.status == 200) {
                         window.location.replace(`${url.href}&userId=${userID}`);
@@ -30,7 +40,7 @@ const QRScanner = (props) => {
                 .catch(err => {
                     alert("chair already in use");
                     console.log(err);
-                    window.location.href = 'http://localhost:4020';
+                    window.location.href = `${serverURL}`;
                 });
         }
     }
