@@ -108,8 +108,10 @@ h3 {
 }
 
 .form-field textarea {
-    height: 50px;
-    line-height:45px;
+    height: 36px;
+    line-height: 36px;
+    resize: none;
+   
 }
 
 .form-field {
@@ -238,7 +240,7 @@ h3 {
 
 .description::placeholder {
     color: #d61e2d;
-    font-family: "Montserrat", sans-serif;
+    /*font-family: "Montserrat", sans-serif;*/
     text-align: center;
 }
 
