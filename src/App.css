@@ -70,6 +70,10 @@ body {
 
 }
 
+input[type='file']::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
 /* Chat Page */
 
 .chat-container {
