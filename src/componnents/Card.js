@@ -25,9 +25,9 @@ const Card = ({myId, user,communicationDrink, communicationChat, blur, socket}) 
                 <div className={`text-xl place-items-center grid mb-2`}>
                     {user.user_id.firstname[0].toUpperCase() + user.user_id.firstname.substring(1).toLowerCase()} {user.user_id.lastname[0].toUpperCase() + user.user_id.lastname.substring(1).toLowerCase()}
                 </div>
-                <div className="mail grid border-b-2 border-black">
+                <div className="mail grid">
                 </div>
-                <div className={`grid border-b-2 border-black`}>
+                <div className={`grid border-t-2 border-black`}>
                     <div className={`m-2 ml-8`}>
                         <div> Age:
                         </div>
@@ -37,10 +37,10 @@ const Card = ({myId, user,communicationDrink, communicationChat, blur, socket}) 
                         {user.user_id.description}
                     </div>
                 </div>
-                <div className="grid place-center grid-flow-col gap-1">
+                { myId != user.user_id._id && <div className="grid place-center grid-flow-col gap-1 border-t-2 border-black">
                     <DrinkButton communication={communicationDrink} userId={user.user_id._id} blur={blur} socket={socket}/>
                     <ChatButton myId={myId} communication={communicationChat} userId={user.user_id._id} socket={socket}/>
-                </div>
+                </div>}
             </div>
         </div>
     )
