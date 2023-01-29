@@ -66,7 +66,8 @@ const SignUp = ({setStatus}) => {
     return (
         <>
             <div className={`min-w-[260px] grid content-center place-items-center h-screen`}>
-                <img alt="My Image" className="my-image" src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1675013552/users_profile/may_i_3_uaxxn7.png"/>
+                <img alt="My Image" className="my-image"
+                     src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1675013552/users_profile/may_i_3_uaxxn7.png"/>
                 <form action="#" className="form" id="signup-form" onSubmit={submit} method="POST">
 
                     <div className="form-field r-username">
@@ -115,7 +116,8 @@ const SignUp = ({setStatus}) => {
                         </div>
                         <label htmlFor="gender"></label>
                         <select id="gender" name="gender" placeholder="Gender">
-                            <option value="male">male</option>
+                            {/*<option value="" disabled selected>Male</option>*/}
+                            <option value="male" selected>male</option>
                             <option value="female">female</option>
                         </select>
                     </div>

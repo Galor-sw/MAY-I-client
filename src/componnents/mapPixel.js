@@ -18,7 +18,7 @@ const mapPixel = ({user, changeCard}) => {
     }
 
     return (
-        <button className={color + ' w-10 h-10 bg-contain'}
+        <button className={color + ' min-w-[25px] md:w-10 min-h-[25px] md:h-10 bg-contain'}
                 onClick={user.gender <= 1 ? nothing : submit}
                 type="button"
         >

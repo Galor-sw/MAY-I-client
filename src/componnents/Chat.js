@@ -132,27 +132,35 @@ const Chat = () => {
     return !myId ? null : (
         <>
             <Header myId={myId}/>
-            <div className="ChatBody">
-                <div className="chat-container">
-                    <header className="chat-header">
-                        <h1 className="ChatH1">Private Chat</h1>
-                        <LeaveChatButton myId={myId} socket={socket}/>
-                    </header>
-                    <main className="chat-main">
-                        <ChatMessagesList messages={chatMessages}/>
-                    </main>
-                    <div className="chat-form-container">
-                        {typing && <Typing name={typerName}/>}
-                        <form id="chat-form" onSubmit={sendMessage}>
-                            <input onChange={userTyping}
-                                   autoComplete="off"
-                                   id="msg"
-                                   placeholder="Enter Message"
-                                   required
-                                   type="text"
-                            />
-                            <button className="btn"><i className="fas fa-paper-plane"></i> Send</button>
-                        </form>
+            <div className={`grid`}>
+                <div className="ChatBody m-2 md:m-10 grid md:place-items-center">
+                    <div className="chat-container max-w-[1100px] border-2 border-black ">
+                        <header className="chat-header text-black border-b-2 border-black">
+                            <h1 className="ChatH1">Private Chat</h1>
+                            <LeaveChatButton myId={myId} socket={socket}/>
+                        </header>
+                        <main className="chat-main">
+                            <ChatMessagesList messages={chatMessages}/>
+                        </main>
+                        <div className="chat-form-container border-t-2 border-black">
+                            {typing && <Typing name={typerName}/>}
+                            <form id="chat-form" onSubmit={sendMessage}>
+                                <div
+                                    className={`grid grid-flow-row md:grid-flow-col gap-2 min-w-full`}>
+                                    <input onChange={userTyping} className={`min-w-fit md:min-w-[800px]`}
+                                           autoComplete="off"
+                                           id="msg"
+                                           placeholder="Enter Message"
+                                           required
+                                           type="text"
+                                    />
+                                    <button className="btn min-w-[160px] place-self-center rounded-md"><i
+                                        className="fas fa-paper-plane"></i> Send
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

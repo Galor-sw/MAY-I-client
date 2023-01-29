@@ -9,7 +9,8 @@ const Card = ({myId, user, communicationDrink, communicationChat, closeCard, blu
         pic = 'woman ';
     }
     return (
-        <div className="min-w-[250px] mt-20 max-w-[250px] bg-[#f6d2d6] place-self-center rounded-lg gap-2 m-2 border-2 border-black mb-[100px]">
+        <div
+            className="min-w-[250px] mt-8 md:mt-15 max-w-[250px] bg-[#f6d2d6] place-self-center rounded-lg gap-2 m-2 border-2 border-black mb-[100px]">
             <div className={`grid`}>
                 <button className={`text-xl place-self-end pr-2`} onClick={() => closeCard('')}>x</button>
             </div>
@@ -36,10 +37,13 @@ const Card = ({myId, user, communicationDrink, communicationChat, closeCard, blu
                         {user.user_id.description}
                     </div>
                 </div>
-                { myId != user.user_id._id && <div className="grid place-center grid-flow-col gap-1 border-t-2 border-black">
-                    <DrinkButton communication={communicationDrink} userId={user.user_id._id} blur={blur} socket={socket}/>
-                    <ChatButton myId={myId} communication={communicationChat} userId={user.user_id._id} socket={socket}/>
-                </div>}
+                {myId != user.user_id._id &&
+                    <div className="grid place-center grid-flow-col gap-1 border-t-2 border-black">
+                        <DrinkButton communication={communicationDrink} userId={user.user_id._id} blur={blur}
+                                     socket={socket}/>
+                        <ChatButton myId={myId} communication={communicationChat} userId={user.user_id._id}
+                                    socket={socket}/>
+                    </div>}
             </div>
         </div>
     )

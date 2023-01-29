@@ -84,7 +84,7 @@ const Map = ({changeUser, users}) => {
 
     return (
         <div className="border-2 border-black">
-            {usersSeted && <div className="grid max-w-[900px] min-w-[500px]">
+            {usersSeted && <div className="grid max-w-[390px] md:max-w-[900px] md:min-w-[400px]">
                 {locationMap.map((row, key) => {
                         return (
                             <div key={key} className="grid grid-flow-col">

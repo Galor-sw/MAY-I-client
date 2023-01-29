@@ -1,4 +1,3 @@
-
 const ChatMessage = ({message}) => {
     return (
         <div className="message">
@@ -8,4 +7,4 @@ const ChatMessage = ({message}) => {
     )
 }
 
-export default  ChatMessage;
+export default ChatMessage;

@@ -111,11 +111,13 @@ function App() {
         <>
             <Header myId={clicker}/>
             <div
-                className={'grid place-content-center gap-4 mainLinear bg-cover h-full mt-20 relative w-full bg-cover bg-center' + blur}>
+                className={'grid place-content-center mainLinear bg-cover h-full mt-8 md:mt-15 relative w-full bg-cover bg-center' + blur}>
                 {!loading ? <Map changeUser={changeUser} users={users}/> : <div>loading...</div>}
-                {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink}
-                                        communicationChat={setCommunicationChat} closeCard={setUserId} blur={setBlur}
-                                        socket={socket}/>}
+                {userId !== '' ? <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink}
+                                       communicationChat={setCommunicationChat} closeCard={setUserId} blur={setBlur}
+                                       socket={socket}/> :
+                    <div className={`place-self-center text-xl md:text-3xl`}>Click on a person to see his
+                        details</div>}
             </div>
             {communicationDrink != '' &&
                 <DrinkMenu sender={clicker} communication={communicationDrink} setCommunication={setCommunicationDrink}

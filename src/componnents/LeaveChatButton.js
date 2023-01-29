@@ -22,7 +22,7 @@ const LeaveChatButton = ({myId, socket}) => {
     }
     const href = `${clientURL}/home`
     return (
-        <a className="btn noTextDeco" href={href} id="disconnect" onClick={leaveChat}>Leave Chat</a>
+        <a className="btn noTextDeco rounded-md" href={href} id="disconnect" onClick={leaveChat}>Leave Chat</a>
     )
 }
 

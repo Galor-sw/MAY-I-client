@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import { FiLogOut } from 'react-icons/fi';
 
 const LogoutButton = ({myId}) => {
     const [location, setLocation] = useState(window.location.origin);
@@ -19,13 +18,13 @@ const LogoutButton = ({myId}) => {
 
     useEffect(() => {
 
-    console.log(myId);
-    axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
-    axios.get(`${serverURL}/connected/user/${myId}`)
-        .then(retVal => {
-            setImageUrl(retVal.data.image.ImageUrl);
-        })
-        .catch(error => console.log(error))
+        console.log(myId);
+        axios.defaults.headers.common['Access-Control-Allow-Origin'] = `${clientURL}`;
+        axios.get(`${serverURL}/connected/user/${myId}`)
+            .then(retVal => {
+                setImageUrl(retVal.data.image.ImageUrl);
+            })
+            .catch(error => console.log(error))
         axios.get(`${serverURL}/connected/user/${myId}`)
             .then(retVal => {
                 setImageUrl(retVal.data.image.ImageUrl);
@@ -54,14 +53,17 @@ const LogoutButton = ({myId}) => {
 
     }
 
-    return !user ? null :  (
-        <div className="flex mr-10">
-            <div className="mr-5 flex-col flex items-end">
-                <h2>Hey {user.firstname}</h2>
-
-                <button className="mt-3" onClick={handleLogout}><FiLogOut alt="LogOut"  size="30px" className=""/></button>
+    return !user ? null : (
+        <div className="flex mr-5 md:mr-10 m-3">
+            <div className="mr-2 md:mr-5 grid place-items-center gap-1 md:gap-2 ">
+                <p className={`text-md md:text-2xl `}>Hey, {user.firstname}</p>
+                <img className="rounded-full shadow-sm max-w-[80px] md:max-w-[100px] max-h-[80px] md:max-h-[100px]"
+                     src={imageUrl}
+                     alt="Profile"/>
+                <button className="mt-3" className={`text-rose-500 font-medium`}
+                        onClick={handleLogout}>log out
+                </button>
             </div>
-            <img className="rounded-full shadow-sm max-w-[100px] max-h-[100px] " src={imageUrl} alt="Profile"/>
         </div>
     );
 }
