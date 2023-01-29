@@ -66,9 +66,9 @@ const SignUp = ({setStatus}) => {
     return (
         <>
             <div className={`min-w-[260px] grid content-center place-items-center h-screen`}>
-                <img alt="My Image" className="my-image"
-                     src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
+                <img alt="My Image" className="my-image" src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1675013552/users_profile/may_i_3_uaxxn7.png"/>
                 <form action="#" className="form" id="signup-form" onSubmit={submit} method="POST">
+
                     <div className="form-field r-username">
                         <div className="icon">
                             <span className="material-symbols-outlined">account_circle</span>

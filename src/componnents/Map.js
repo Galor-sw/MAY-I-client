@@ -83,7 +83,7 @@ const Map = ({changeUser, users}) => {
     }, []);
 
     return (
-        <div>
+        <div className="border-2 border-black">
             {usersSeted && <div className="grid max-w-[900px] min-w-[500px]">
                 {locationMap.map((row, key) => {
                         return (

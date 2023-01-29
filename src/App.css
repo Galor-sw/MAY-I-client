@@ -19,7 +19,7 @@
 }
 
 body {
-    background: radial-gradient(circle, #FEB9C6 0%, #048399, #B96B85, #005067 88%, #005067 100%);
+        background: #F9F7F2;
 }
 
 @import url(//db.onlinewebfonts.com/c/240a7cb10b49b02c94ceddc459d385a9?family=Gagalin);
@@ -204,10 +204,7 @@ h4 {
 
 .top{
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 

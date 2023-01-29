@@ -16,12 +16,10 @@ const ChatPopUp = ({sender, roomId, socket, setCommunication, blur, communicatio
     const navigate = useNavigate()
 
     const closeWindow = () => {
-        console.log(sender)
-        console.log(roomId)
+
         axios.get(`${serverURL}/connected/user/${roomId}`)
             .then(retVal => {
                 const user = retVal
-                console.log(user)
 
                 socket.emit("refuseChat", {
                     name: user.data.firstname,
@@ -36,7 +34,6 @@ const ChatPopUp = ({sender, roomId, socket, setCommunication, blur, communicatio
 
     const approve = () => {
         //move to chat (with roomId)
-        console.log(roomId)
         socket.disconnect()
         navigate(`/Chat?myId=${roomId}&roomId=${roomId}`)
     }

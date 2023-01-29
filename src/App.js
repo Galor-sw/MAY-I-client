@@ -90,61 +90,6 @@ function App() {
         bringData().then();
     }, []);
 
-
-    // const server = async (e) => {
-    //     console.log("111111111111111111111")
-    //     e.preventDefault();
-    //     // JSON.stringify({email: "kobi.ronen@gmail.com", password: "123"});
-    //     // headers: {
-    //     //     'Content-Type': 'application/json'
-    //     // }
-    //     try {
-    //         console.log('login');
-    //         await axios.post(`${location}/login`, {
-    //                 email: "kobi.ronen@gmail.com", password: "123",
-    //             },
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 withCredentials: true,
-    //             }).then(response => response.json())
-    //             .then(sessionID => {
-    //                 // do something with the data
-    //
-    //                 console.log(sessionID);
-    //                 // setSessionId(sessionID);
-    //             });
-    //
-    //     } catch (error) {
-    //     }
-    // }
-
-    // const userInfo = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         console.log('after login');
-    //         console.log({toto: document.cookie});
-    //         await axios.get(`${location}/userInfo`, {
-    //             withCredentials: true,
-    //             credentials: 'include',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Cookie': `Idea-de3e26ac=${cookie.get('Idea-de3e26ac')}; session=${cookie.get('session')}; session.sig=${cookie.get('session.sig')}; sessionId=${cookie.get('sessionId')}`
-    //             }
-    //         }).then(response => {
-    //             // const data = response
-    //             console.log({cookies: getCookie()})
-    //             console.log({...response})
-    //             const data = response.data;
-    //             console.log(JSON.stringify(data))
-    //         });
-    //
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
     const appendUsers = (user) => {
         const tempUsers = users;
         tempUsers.push(user);
@@ -164,12 +109,9 @@ function App() {
     const [blur, setBlur] = useState('');
     return (
         <>
+            <Header myId={clicker}/>
             <div
-                className={'grid place-content-center gap-4 mainLinear bg-cover h-screen relative w-full bg-cover bg-center ' + blur}>
-                {/*<button onClick={server}>login</button>*/}
-                {/*<button onClick={userInfo}>afterLogin</button>*/}
-
-                <Header myId={clicker}/>
+                className={'grid place-content-center gap-4 mainLinear bg-cover h-full mt-20 relative w-full bg-cover bg-center' + blur}>
                 {!loading ? <Map changeUser={changeUser} users={users}/> : <div>loading...</div>}
                 {userId !== '' && <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink}
                                         communicationChat={setCommunicationChat} closeCard={setUserId} blur={setBlur}

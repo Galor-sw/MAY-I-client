@@ -7,10 +7,6 @@ const drinks = [
     {name: 'Whiskey Sour', price: 10.00},
     {name: 'Margarita', price: 12.00},
     {name: 'Mojito', price: 9.00},
-    {name: 'Old Fashioned', price: 12.00},
-    {name: 'Cosmopolitan', price: 11.00},
-    {name: 'Daiquiri', price: 10.00},
-    {name: 'Long Island Iced Tea', price: 14.00},
     {name: 'Sex on the Beach', price: 12.00},
 ];
 

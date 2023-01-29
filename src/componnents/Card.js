@@ -9,11 +9,11 @@ const Card = ({myId, user, communicationDrink, communicationChat, closeCard, blu
         pic = 'woman ';
     }
     return (
-        <div className="min-w-[250px] max-w-[250px] bg-emerald-100 place-self-center rounded-lg gap-2 m-2">
+        <div className="min-w-[250px] mt-20 max-w-[250px] bg-[#f6d2d6] place-self-center rounded-lg gap-2 m-2 border-2 border-black mb-[100px]">
             <div className={`grid`}>
                 <button className={`text-xl place-self-end pr-2`} onClick={() => closeCard('')}>x</button>
             </div>
-            <div className={`px-2 pb-2 rounded-lg`}>
+            <div className={`px-2 pb-5 rounded-lg`}>
                 <div className="userName grid grid-flow-row place-items-center">
                     <div className="relative w-40 h-40 my-2">
                         <img className="rounded-full shadow-sm"
@@ -22,18 +22,16 @@ const Card = ({myId, user, communicationDrink, communicationChat, closeCard, blu
                     </div>
                 </div>
             </div>
-            <div className={`bg-white rounded-b-lg pt-2`}>
+            <div className={`bg-[#efecef] rounded-b-lg pt-2`}>
                 <div className={`text-xl place-items-center grid mb-2`}>
                     {user.user_id.firstname[0].toUpperCase() + user.user_id.firstname.substring(1).toLowerCase()} {user.user_id.lastname[0].toUpperCase() + user.user_id.lastname.substring(1).toLowerCase()}
                 </div>
-                <div className="mail grid">
-                </div>
                 <div className={`grid border-t-2 border-black`}>
                     <div className={`m-2 ml-8`}>
-                        <div> Age:
+                        <div className="font-semibold"> Age:
                         </div>
                         {user.user_id.age}
-                        <div> About me:
+                        <div className="font-semibold"> About me:
                         </div>
                         {user.user_id.description}
                     </div>
