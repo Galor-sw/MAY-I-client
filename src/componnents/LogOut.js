@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 
 const LogoutButton = ({myId}) => {
-
+    const [location, setLocation] = useState(window.location.origin);
+    let clientURL;
+    let serverURL
+    if (location == 'http://localhost:3000') {
+        clientURL = 'http://localhost:3000';
+        serverURL = 'http://localhost:4020';
+    } else {
+        clientURL = 'https://may-i-client.onrender.com';
+        serverURL = 'https://may-i.onrender.com';
+    }
     console.log(myId);
 
-    axios.get(`http://localhost:4020/connected/user/${myId}`)
+    axios.get(`${serverURL}/connected/user/${myId}`)
         .then(retVal => {
             setImageUrl(retVal.data.image.ImageUrl);
         })
@@ -15,7 +24,7 @@ const LogoutButton = ({myId}) => {
 
     const handleLogout = async () => {
 
-        await axios.post(`${location}/logOut`, {
+        await axios.post(`${serverURL}/logOut`, {
                 user_id: `${myId}`,
             },
             {
@@ -28,13 +37,13 @@ const LogoutButton = ({myId}) => {
             console.log(error);
         });
 
-        window.location.href = 'http://localhost:4020';
+        window.location.href = clientURL;
 
     }
 
     return (
         <div>
-            <img className="rounded-full shadow-sm max-w-[80px]" src={imageUrl} alt="Profile" />
+            <img className="rounded-full shadow-sm max-w-[80px]" src={imageUrl} alt="Profile"/>
             <button onClick={handleLogout}>Logout</button>
         </div>
     );
