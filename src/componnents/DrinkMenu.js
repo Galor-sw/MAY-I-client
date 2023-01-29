@@ -10,7 +10,7 @@ const drinks = [
     {name: 'Sex on the Beach', price: 12.00},
 ];
 
-const DrinkMenu = ({sender, socket, setCommunication, blur, communication}) => {
+const DrinkMenu = ({sender, socket, setCommunication, popUpDrink, blur, communication}) => {
 
     const closeWindow = () => {
 
@@ -26,9 +26,9 @@ const DrinkMenu = ({sender, socket, setCommunication, blur, communication}) => {
             userId: communication,
             drink: selectedDrinks
         })
-
+        popUpDrink('Your drink has sent')
         setCommunication('');
-        blur('');
+        blur('blur-md');
     }
 
     const [selectedDrinks, setSelectedDrinks] = useState([]);

@@ -111,7 +111,7 @@ function App() {
         <>
             <Header myId={clicker}/>
             <div
-                className={'grid place-content-center mainLinear bg-cover h-full mt-8 md:mt-15 relative w-full bg-cover bg-center' + blur}>
+                className={'grid place-content-center mainLinear bg-cover h-full mt-8 md:mt-15 relative w-full bg-cover bg-center ' + blur}>
                 {!loading ? <Map changeUser={changeUser} users={users}/> : <div>loading...</div>}
                 {userId !== '' ? <Card myId={clicker} user={user} communicationDrink={setCommunicationDrink}
                                        communicationChat={setCommunicationChat} closeCard={setUserId} blur={setBlur}
@@ -120,7 +120,7 @@ function App() {
                         details</div>}
             </div>
             {communicationDrink != '' &&
-                <DrinkMenu sender={clicker} communication={communicationDrink} setCommunication={setCommunicationDrink}
+                <DrinkMenu sender={clicker} popUpDrink={setDrinkPopUpText} communication={communicationDrink} setCommunication={setCommunicationDrink}
                            blur={setBlur} socket={socket}/>}
             {communicationChat != '' &&
                 <ChatPopUp sender={sender} roomId={room} communication={communicationChat}
