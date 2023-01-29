@@ -108,13 +108,16 @@ h3 {
 }
 
 .form-field textarea {
-    height: 36px;
+    height: 50px;
+    line-height:45px;
 }
 
 .form-field {
     margin-bottom: 16px;
     width: 100%;
     position: relative;
+    color: #d61e2d;
+
 }
 
 .form-field .icon {
@@ -140,6 +143,7 @@ h3 {
     border-left: 12px solid white;
     position: absolute;
     left: 35px;
+
 }
 
 .my-image {
@@ -153,10 +157,10 @@ h3 {
     width: 100%;
     border-radius: 16px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
     outline: none;
+    background: white;
     transition: all 0.2s;
+    color: #d61e2d;
 }
 
 .form-field select {
@@ -165,18 +169,20 @@ h3 {
     width: 100%;
     border-radius: 16px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
     outline: none;
     transition: all 0.2s;
+    color: #d61e2d;
 }
 
 .form-field input::placeholder {
     color: white;
+    color: #d61e2d;
+
 }
 
 .form-field select::placeholder {
     color: white;
+    color: #d61e2d;
 }
 
 .form-field input:hover,
@@ -207,8 +213,7 @@ h3 {
     width: 100%;
     border-radius: 16px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    color: #d61e2d;
     outline: none;
 }
 
@@ -225,14 +230,14 @@ h3 {
     width: 100%;
     border-radius: 16px;
     height: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: white;
+    color: #d61e2d;
     outline: none;
 }
 
 
 .description::placeholder {
-    color: white;
+    color: #d61e2d;
     font-family: "Montserrat", sans-serif;
     text-align: center;
 }

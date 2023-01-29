@@ -4,6 +4,7 @@ import ChatMessagesList from "./ChatMessagesList";
 import {io} from 'socket.io-client';
 import axios from "axios";
 import LeaveChatButton from "./LeaveChatButton";
+import Header from "./Header";
 
 
 const Chat = () => {
@@ -61,7 +62,6 @@ const Chat = () => {
                 })
 
                 newSocket.on('display', (data) => {
-                    console.log('display: ' + data.user)
                     if (data.typing == true) {
                         setTyperName(data.user)
                         setTyping(true);
@@ -77,7 +77,6 @@ const Chat = () => {
 
     // Hide 'typing..'
     const typingTimeout = () => {
-        console.log('typingTimeout:' + typerName)
         setTyping(false);
         socket.emit('typing', {user: typerName, typing: false});
     }
@@ -118,10 +117,8 @@ const Chat = () => {
         // if Not CR
         if (e.which != 13) {
 
-            setTyping(true);
+            //setTyping(true);
             setTyperName(userName);
-            console.log('while clicking:' + userName)
-            console.log('while clicking:' + typerName)
             socket.emit('typing', {user: userName, typing: true});
 
             clearTimeout(timeout);
@@ -132,8 +129,9 @@ const Chat = () => {
         }
     };
 
-    return (
+    return !myId ? null : (
         <>
+            <Header myId={myId}/>
             <div className="ChatBody">
                 <div className="chat-container">
                     <header className="chat-header">

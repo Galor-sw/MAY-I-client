@@ -60,7 +60,7 @@ const LoginPage = ({setStatus}) => {
     return (
         <div className={`grid content-center place-items-center h-screen`}>
             <img alt="My Image" className="my-image"
-                 src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png"/>
+                 src="https://res.cloudinary.com/dm2gqkilw/image/upload/v1675013552/users_profile/may_i_3_uaxxn7.png"/>
             <form className={`min-w-[260px]`} onSubmit={submit}>
                 <div className="form-field username">
                     <div className="icon">
